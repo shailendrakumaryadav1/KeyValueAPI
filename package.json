@@ -1,0 +1,24 @@
+{
+  "name": "keyvalueapi",
+  "version": "1.0.0",
+  "description": "RESTful version controlled key-value store",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shailendrakumaryadav1/KeyValueAPI.git"
+  },
+  "keywords": [
+    "RESTful",
+    "Key-Value",
+    "API"
+  ],
+  "author": "shailendra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shailendrakumaryadav1/KeyValueAPI/issues"
+  },
+  "homepage": "https://github.com/shailendrakumaryadav1/KeyValueAPI#readme"
+}
