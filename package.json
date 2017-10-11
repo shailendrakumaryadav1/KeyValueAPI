@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/shailendrakumaryadav1/KeyValueAPI/issues"
   },
-  "homepage": "https://github.com/shailendrakumaryadav1/KeyValueAPI#readme"
+  "homepage": "https://github.com/shailendrakumaryadav1/KeyValueAPI#readme",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
 }
