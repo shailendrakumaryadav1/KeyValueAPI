@@ -2,7 +2,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
 var KeyTimeValueSchema = new Schema({
   key: {
     type: String,
@@ -20,11 +19,10 @@ var KeyTimeValueSchema = new Schema({
 
 module.exports = mongoose.model('KeyTimeValues', KeyTimeValueSchema);
 
-
 var ValueSchema = new Schema({
   value: {
     type: Object,
-    default: 'Value1'
+    default: ''
   }
 });
 
