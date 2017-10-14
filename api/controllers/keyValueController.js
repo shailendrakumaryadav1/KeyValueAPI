@@ -18,7 +18,7 @@ exports.create_a_key_value_pair = function (req, res) {
   }
 
   console.log('key is = ' + key);
-  console.log('value is =' + value);
+  console.log('value is = ' + value);
 
   var key_value_item = new KeyTimeValues({
     key: key,

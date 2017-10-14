@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 function omitPrivate(doc, ret) {
   delete ret.__v;
   delete ret._id;
-  console.log('deleted __v and _id');
   return ret;
 }
 

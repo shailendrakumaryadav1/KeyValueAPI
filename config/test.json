@@ -1,0 +1,3 @@
+{
+    "DBHost": "mongodb://localhost/key-value-db-test"
+}
