@@ -10,6 +10,16 @@ exports.create_a_key_value_pair = function (req, res) {
   var key, value, timestamp = Date.now();
   timestamp = (timestamp - timestamp % 1000) / 1000;
   var jsonBody = req.body;
+
+  if (Object.keys(jsonBody).length != 1) {
+    var error_msg = new Error_Message({
+      message: 'Key-Value not in proper format'
+    });
+    console.log(error_msg);
+    res.status(404).send(error_msg);
+    return;
+  }
+
   for (var k in jsonBody) {
     if (jsonBody.hasOwnProperty(k)) {
       key = k;
@@ -36,6 +46,7 @@ exports.create_a_key_value_pair = function (req, res) {
     if (err) {
       console.log(err);
       res.send(err);
+      return;
     }
     console.log(result);
     res.json(result);
@@ -60,8 +71,7 @@ exports.read_a_key = function (req, res) {
       console.log(err);
       res.send(err);
     }
-
-    if (result.length == 0) {
+    else if (result.length == 0) {
       // no key exist in KeyTimeValues datastore.
       var error_msg = new Error_Message({
         message: 'Key does not exist'
