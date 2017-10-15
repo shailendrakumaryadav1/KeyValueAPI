@@ -1,6 +1,6 @@
 let express = require('express'),
   app = express(),
-  port = 8080,
+  port = process.env.PORT || 8080,
   mongoose = require('mongoose'),
   models = require('./api/models/keyValueModel'), //created model loading here
   bodyParser = require('body-parser'),
