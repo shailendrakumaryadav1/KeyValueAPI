@@ -1,9 +1,14 @@
 'use strict';
 
+global.KEY_VALUE_FORMAT_ERROR = 'Key-Value not in proper format';
+global.KEY_DOES_NOT_EXIST = 'Key does not exist';
+global.KEY_DOES_NOT_EXIST_AT_TIMESTAMP = 'Key does not exist at this timestamp';
+
+
 var mongoose = require('mongoose'),
-  KeyTimeValues = mongoose.model('KeyTimeValues'),
-  Value = mongoose.model('Value'),
-  Error_Message = mongoose.model('Error_Message');
+  KeyTimeValues = mongoose.model(KEY_TIME_VALUES),
+  Value = mongoose.model(VALUE),
+  Error_Message = mongoose.model(ERROR_MESSAGE);
 
 exports.create_a_key_value_pair = function (req, res) {
   console.log(req.body);
@@ -13,7 +18,7 @@ exports.create_a_key_value_pair = function (req, res) {
 
   if (Object.keys(jsonBody).length != 1) {
     var error_msg = new Error_Message({
-      message: 'Key-Value not in proper format'
+      message: KEY_VALUE_FORMAT_ERROR
     });
     console.log(error_msg);
     res.status(404).send(error_msg);
@@ -34,9 +39,9 @@ exports.create_a_key_value_pair = function (req, res) {
     key: key,
     value: value,
     timestamp: timestamp
-  })
+  });
 
-  console.log('made key value item is = ' + key_value_item);
+  console.log('key value item is = ' + key_value_item);
 
   var query = { key: key, timestamp: timestamp },
     update = { value: value },
@@ -74,7 +79,7 @@ exports.read_a_key = function (req, res) {
     else if (result.length == 0) {
       // no key exist in KeyTimeValues datastore.
       var error_msg = new Error_Message({
-        message: 'Key does not exist'
+        message: KEY_DOES_NOT_EXIST
       });
       console.log(error_msg);
       res.status(404).send(error_msg);
@@ -93,7 +98,7 @@ exports.read_a_key = function (req, res) {
       if (index == -1) {
         // key does not exist at this time.
         var error_msg = new Error_Message({
-          message: 'Key does not exist at this timestamp'
+          message: KEY_DOES_NOT_EXIST_AT_TIMESTAMP
         });
         console.log(error_msg);
         res.status(404).send(error_msg);

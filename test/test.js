@@ -3,17 +3,23 @@ process.env.NODE_ENV = 'test';
 
 let mongoose = require("mongoose");
 let models = require('../api/models/keyValueModel');
+let controllers = require('../api/controllers/keyValueController');
 
 //Require the dev-dependencies
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../server');
 let should = chai.should();
-let KeyTimeValues = mongoose.model('KeyTimeValues');
+let KeyTimeValues = mongoose.model(KEY_TIME_VALUES);
+
+const message = 'message';
+const key = 'key';
+const value = 'value';
+const timestamp = 'timestamp';
 
 chai.use(chaiHttp);
 //Our parent block
-describe('Models', () => {
+describe('clear models', () => {
     beforeEach((done) => { //Before each test we empty the database
         KeyTimeValues.remove({}, (err) => {
 
@@ -47,8 +53,8 @@ describe('Models', () => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("message");
-                    res.body["message"].should.equal("Key does not exist");
+                    res.body.should.have.property(message);
+                    res.body[message].should.equal(KEY_DOES_NOT_EXIST);
                     done();
                 });
         });
@@ -62,8 +68,8 @@ describe('Models', () => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("message");
-                    res.body["message"].should.equal("Key does not exist at this timestamp");
+                    res.body.should.have.property(message);
+                    res.body[message].should.equal(KEY_DOES_NOT_EXIST_AT_TIMESTAMP);
                     done();
                 });
         });
@@ -77,8 +83,8 @@ describe('Models', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("value");
-                    res.body["value"].should.equal("Value_at_10000");
+                    res.body.should.have.property(value);
+                    res.body[value].should.equal("Value_at_10000");
                     done();
                 });
         });
@@ -92,8 +98,8 @@ describe('Models', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("value");
-                    res.body["value"].should.equal("Value_at_10000");
+                    res.body.should.have.property(value);
+                    res.body[value].should.equal("Value_at_10000");
                     done();
                 });
         });
@@ -107,8 +113,8 @@ describe('Models', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("value");
-                    res.body["value"].should.equal("Value_at_20000");
+                    res.body.should.have.property(value);
+                    res.body[value].should.equal("Value_at_20000");
                     done();
                 });
         });
@@ -122,8 +128,8 @@ describe('Models', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("value");
-                    res.body["value"].should.equal("Value_at_20000");
+                    res.body.should.have.property(value);
+                    res.body[value].should.equal("Value_at_20000");
                     done();
                 });
         });
@@ -137,8 +143,8 @@ describe('Models', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property("value");
-                    res.body["value"].should.equal("Value_at_10000");
+                    res.body.should.have.property(value);
+                    res.body[value].should.equal("Value_at_10000");
                     done();
                 });
         });
@@ -158,7 +164,7 @@ describe('Models', () => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property('message').eql('Key-Value not in proper format');
+                    res.body.should.have.property(message).eql(KEY_VALUE_FORMAT_ERROR);
                     done();
                 });
         });
@@ -175,7 +181,7 @@ describe('Models', () => {
                     res.should.have.status(404);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(1);
-                    res.body.should.have.property('message').eql('Key-Value not in proper format');
+                    res.body.should.have.property(message).eql(KEY_VALUE_FORMAT_ERROR);
                     done();
                 });
         });
@@ -191,17 +197,16 @@ describe('Models', () => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                     Object.keys(res.body).length.should.equal(3);
-                    res.body.should.have.property('key').eql('key1');
-                    res.body.should.have.property('value').eql('value1');
+                    res.body.should.have.property(key).eql('key1');
+                    res.body.should.have.property(value).eql('value1');
 
                     KeyTimeValues.find({ key: "key1", value: "value1" },
                         function (err, result) {
                             result.length.should.equal(1);
-                            res.body.should.have.property('timestamp').eql(result[0].timestamp);
+                            res.body.should.have.property(timestamp).eql(result[0].timestamp);
                         })
                     done();
                 });
         });
-
     });
 });

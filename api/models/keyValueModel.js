@@ -34,7 +34,8 @@ var KeyTimeValueSchema = new Schema({
   }
 }, options);
 
-module.exports = mongoose.model('KeyTimeValues', KeyTimeValueSchema);
+global.KEY_TIME_VALUES = 'KeyTimeValues';
+module.exports = mongoose.model(KEY_TIME_VALUES, KeyTimeValueSchema);
 
 var ValueSchema = new Schema({
   value: {
@@ -43,15 +44,15 @@ var ValueSchema = new Schema({
   }
 }, options);
 
-module.exports = mongoose.model('Value', ValueSchema);
+global.VALUE = 'Value'
+module.exports = mongoose.model(VALUE, ValueSchema);
 
 var ErrorMessageSchema = new Schema({
   message: {
     type: String,
-    default: "No message"
+    default: ''
   }
 }, options);
 
-module.exports = mongoose.model('Error_Message', ErrorMessageSchema);
-
-console.log('Models created!!!');
+global.ERROR_MESSAGE = 'Error_Message';
+module.exports = mongoose.model(ERROR_MESSAGE, ErrorMessageSchema);

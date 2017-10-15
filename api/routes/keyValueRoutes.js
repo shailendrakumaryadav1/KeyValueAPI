@@ -11,5 +11,3 @@ module.exports = function (app) {
     .get(keyValueController.read_a_key);
 
 };
-
-console.log('Routes created');
